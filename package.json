@@ -1,0 +1,19 @@
+{
+  "name": "expression-trainer",
+  "version": "1.0.0",
+  "description": "宇宙无敌表达训练系统 - 本地桌面版",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev"
+  },
+  "keywords": ["expression", "training", "speech", "asr", "chinese"],
+  "author": "sisi",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  },
+  "dependencies": {
+    "sherpa-onnx-node": "^1.10.0"
+  }
+}
