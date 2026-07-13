@@ -119,9 +119,8 @@
     <div class="form-group">
       <label>AI 后端</label>
       <select id="provider">
-        <option value="groq">Groq（推荐，免费快速）</option>
         <option value="openai">OpenAI</option>
-        <option value="deepseek">DeepSeek</option>
+        <option value="deepseek">DeepSeek（推荐）</option>
         <option value="ollama">Ollama（本地）</option>
         <option value="custom">自定义 OpenAI 兼容</option>
       </select>
@@ -130,7 +129,7 @@
     <div class="form-group conditional" id="group-apikey">
       <label>API Key</label>
       <input type="password" id="apikey" placeholder="输入你的 API Key">
-      <div class="hint" id="apikey-hint">在 console.groq.com 获取</div>
+      <div class="hint" id="apikey-hint">在 platform.deepseek.com 获取</div>
     </div>
 
     <div class="form-group">

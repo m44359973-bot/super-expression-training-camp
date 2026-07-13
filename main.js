@@ -38,9 +38,9 @@ function loadSettings() {
     return JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
   }
   return {
-    provider: 'groq',
+    provider: 'deepseek',
     apiKey: '',
-    model: 'llama-3.3-70b-versatile',
+    model: 'deepseek-chat',
     ollamaUrl: 'http://localhost:11434',
     customEndpoint: '',
     customModel: ''

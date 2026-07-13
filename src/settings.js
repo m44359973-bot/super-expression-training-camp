@@ -1,15 +1,6 @@
 // 设置页逻辑
 
 const PROVIDER_CONFIG = {
-  groq: {
-    needsKey: true,
-    keyHint: '在 console.groq.com 获取免费 key',
-    models: [
-      { value: 'llama-3.3-70b-versatile', label: 'Llama 3.3 70B（推荐）' },
-      { value: 'llama-3.1-8b-instant', label: 'Llama 3.1 8B（更快）' },
-      { value: 'gemma2-9b-it', label: 'Gemma 2 9B' }
-    ]
-  },
   openai: {
     needsKey: true,
     keyHint: '在 platform.openai.com 获取',
@@ -72,7 +63,7 @@ class SettingsPage {
   async loadSettings() {
     const settings = await window.api.getSettings();
 
-    this.providerSelect.value = settings.provider || 'groq';
+    this.providerSelect.value = settings.provider || 'deepseek';
     this.apikeyInput.value = settings.apiKey || '';
     this.ollamaUrlInput.value = settings.ollamaUrl || 'http://localhost:11434';
     this.customEndpointInput.value = settings.customEndpoint || '';
