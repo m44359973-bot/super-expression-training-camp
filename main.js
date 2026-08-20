@@ -3,10 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const { initASR, feedAudio, stopRecognition } = require('./lib/asr');
 const { loadLexicon, analyzeText } = require('./lib/lexicon');
-const { sendFeedback, sendReport, testConnection } = require('./lib/ai-feedback');
+const { sendFeedback, sendReport, sendDialogue, testConnection } = require('./lib/ai-feedback');
 
 // 覆盖应用显示名称（菜单栏、Dock、任务栏、窗口标题）
-app.setName('宇宙无敌表达训练');
+app.setName('超级表达训练营');
 
 let mainWindow;
 let settingsWindow;
@@ -100,7 +100,7 @@ function createMainWindow() {
     width: 1200,
     height: 800,
     backgroundColor: '#000000',
-    title: '宇宙无敌表达训练',
+    title: '超级表达训练营',
     titleBarStyle: 'hiddenInset',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -322,12 +322,27 @@ ipcMain.handle('get-realtime-feedback', async (event, text) => {
   }
 });
 
-ipcMain.handle('get-final-report', async (event, { fullText, stats }) => {
+ipcMain.handle('get-ai-dialogue-reply', async (event, { messages }) => {
   const settings = loadSettings();
   const providerConfig = getCurrentProviderSettings(settings);
   const customPrompt = loadCustomPrompt();
   try {
-    const report = await sendReport(fullText, stats, { ...settings, ...providerConfig }, customPrompt);
+    const reply = await sendDialogue(messages, { ...settings, ...providerConfig }, customPrompt);
+    return { success: true, reply };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('get-final-report', async (event, { fullText, stats, conversation }) => {
+  const settings = loadSettings();
+  const providerConfig = getCurrentProviderSettings(settings);
+  const customPrompt = loadCustomPrompt();
+  try {
+    const formattedConversation = Array.isArray(conversation)
+      ? conversation.map(turn => `${turn.speaker === 'ai' ? 'AI' : '我'}：${turn.text}`).join('\n')
+      : '';
+    const report = await sendReport(fullText, stats, { ...settings, ...providerConfig }, customPrompt, formattedConversation);
     return { success: true, report };
   } catch (error) {
     return { success: false, error: error.message };

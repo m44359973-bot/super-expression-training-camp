@@ -28,6 +28,7 @@ contextBridge.exposeInMainWorld('api', {
 
   // AI反馈
   getRealtimeFeedback: (text) => ipcRenderer.invoke('get-realtime-feedback', text),
+  getAIDialogueReply: (messages) => ipcRenderer.invoke('get-ai-dialogue-reply', { messages }),
   getFinalReport: (data) => ipcRenderer.invoke('get-final-report', data),
   testLLMConnection: (settings) => ipcRenderer.invoke('test-llm-connection', settings),
 
