@@ -1,6 +1,8 @@
-# 🚀 宇宙无敌表达训练系统 - 本地桌面版
+# 超级表达训练营
 
-> 👉 **在线版已上线：[exprtrain.online](https://exprtrain.online)**，无需安装，打开浏览器即用。支持中英双语。
+本项目是基于 Electron 的本地口语表达训练工具，支持独自表达、AI 对话、60 秒挑战、实时词库反馈和 Markdown 报告。
+
+> 仓库中的语音模型不放入 Git 历史（其中一个文件超过 GitHub 单文件限制），请从本项目的 [Releases](https://github.com/m44359973-bot/super-expression-training-camp/releases) 下载模型包。
 
 一个帮你训练口语表达精准度的本地桌面应用。实时语音识别 → 词库匹配 → AI反馈，全程离线+本地处理。
 
@@ -14,41 +16,31 @@
 
 ## 安装
 
-### 1. 克隆项目 & 安装依赖
+### 1. 克隆项目并安装依赖
 
 ```bash
-cd expression-trainer
+git clone https://github.com/m44359973-bot/super-expression-training-camp.git
+cd super-expression-training-camp
 npm install
 ```
 
-### 2. 下载语音识别模型
+### 2. 下载并放置语音识别模型
 
-需要下载 Sherpa-ONNX 的 streaming paraformer 中英双语模型：
-
-```bash
-cd models
-
-# 方法一：使用 wget
-wget https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-streaming-paraformer-bilingual-zh-en.tar.bz2
-tar xvf sherpa-onnx-streaming-paraformer-bilingual-zh-en.tar.bz2
-
-# 方法二：使用 huggingface
-# https://huggingface.co/csukuangfj/sherpa-onnx-streaming-paraformer-bilingual-zh-en
-```
-
-下载后 `models/` 目录应包含：
-```
-models/
-└── sherpa-onnx-streaming-paraformer-bilingual-zh-en/
-    ├── encoder.int8.onnx
-    ├── decoder.int8.onnx
-    └── tokens.txt
-```
-### 3. 启动应用
+从 [Releases](https://github.com/m44359973-bot/super-expression-training-camp/releases) 下载 `sherpa-onnx-streaming-paraformer-bilingual-zh-en.zip`，解压后确保目录结构如下：
 
 ```bash
-npm start
+models/sherpa-onnx-streaming-paraformer-bilingual-zh-en/encoder.int8.onnx
+models/sherpa-onnx-streaming-paraformer-bilingual-zh-en/decoder.int8.onnx
+models/sherpa-onnx-streaming-paraformer-bilingual-zh-en/tokens.txt
 ```
+
+### 3. 启动应用（Windows）
+
+```bash
+start.bat
+```
+
+也可以运行 `npm start`。
 
 ### 4. 配置 AI 后端
 
@@ -71,6 +63,8 @@ npm start
 3. **左侧面板**实时统计填充词/犹豫词/笼统词
 4. **右侧面板**每50字会给出AI实时反馈
 5. **说完后点击「结束」** → 可以点「生成报告」获取完整分析
+
+挑战记录只保存在本机，不会上传到服务器。
 
 ## 字幕颜色含义
 
