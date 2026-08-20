@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>宇宙无敌表达训练系统</title>
+  <title>超级表达训练营</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <canvas id="scene-canvas" aria-hidden="true"></canvas>
+
   <!-- 洋红闪烁边框 -->
   <div class="glow-border"></div>
 
@@ -14,7 +16,10 @@
   <div class="layout">
     <!-- 左栏：表达分析 -->
     <aside class="panel-left">
-      <div class="panel-title">📊 表达分析</div>
+      <div class="panel-heading">
+        <div class="panel-title">表达分析</div>
+        <div class="panel-caption">实时词语信号</div>
+      </div>
       <div class="stat-row">
         <span class="stat-label">笼统词</span>
         <span id="stat-vague" class="stat-value stat-red">0</span>
@@ -31,25 +36,64 @@
         <span class="stat-label">表达密度</span>
         <span id="stat-density" class="stat-value stat-green">--</span>
       </div>
+      <div class="mode-section">
+        <div class="mode-label">训练模式</div>
+        <div class="mode-switch" role="group" aria-label="练习模式">
+          <button id="btn-mode-solo" class="mode-option active" type="button">独自表达</button>
+          <button id="btn-mode-dialogue" class="mode-option" type="button">AI 对话</button>
+          <button id="btn-mode-challenge" class="mode-option" type="button">挑战模式</button>
+        </div>
+        <div id="mode-description" class="mode-description">你说，我帮你记录和分析</div>
+      </div>
+      <div class="challenge-history">
+        <div class="font-control-header"><span>挑战记录</span><output id="challenge-record-count">0 次</output></div>
+        <div class="challenge-best">最高分 <strong id="challenge-best-score">--</strong></div>
+        <div id="challenge-history-list" class="challenge-history-list"></div>
+      </div>
+      <div class="font-control">
+        <div class="font-control-header">
+          <span>字幕字号</span>
+          <output id="font-size-value" for="font-size-slider">25px</output>
+        </div>
+        <input id="font-size-slider" class="font-size-slider" type="range" min="18" max="36" value="25" step="1" aria-label="调整字幕字号">
+      </div>
+      <div class="font-family-control">
+        <label class="font-control-header" for="font-family-select"><span>字幕字体</span></label>
+        <select id="font-family-select" class="font-family-select" aria-label="选择字幕字体">
+          <option value="system">系统黑体</option>
+          <option value="rounded">圆润黑体</option>
+          <option value="serif">清晰宋体</option>
+          <option value="mono">等宽字体</option>
+        </select>
+      </div>
     </aside>
 
     <!-- 中间：主内容区 -->
     <main class="main-area">
       <!-- 顶部栏 -->
       <div class="topbar">
-        <span class="app-title">宇宙无敌表达训练系统</span>
+        <div class="brand-lockup">
+          <div class="brand-mark">口</div>
+          <div>
+            <div class="app-kicker">表达训练工作台</div>
+            <span class="app-title">超级表达训练营</span>
+          </div>
+        </div>
         <div class="topbar-right">
-          <span id="timer" class="timer">00:00</span>
+          <div class="session-status"><span class="status-dot"></span><span id="timer" class="timer">00:00</span></div>
           <button id="btn-prompt-editor" class="btn-icon" title="训练规则">🎯</button>
           <button id="btn-settings" class="btn-icon" title="设置">⚙️</button>
         </div>
       </div>
 
+      <section id="challenge-panel" class="challenge-panel hidden" aria-live="polite">
+        <div class="challenge-panel-label">本轮挑战 · 60 秒</div>
+        <div id="challenge-question" class="challenge-question"></div>
+        <button id="btn-change-question" class="btn-sm challenge-change" type="button">换一道题</button>
+      </section>
+
       <!-- 字幕区顶部工具栏 -->
       <div class="subtitle-topbar">
-        <button id="btn-paste" class="btn-sm btn-paste-top">
-          <span>📋</span> 粘贴逐字稿
-        </button>
         <div class="subtitle-topbar-right">
           <button id="btn-copy-text" class="btn-sm hidden" title="复制原文">📋 复制</button>
           <button id="btn-save-text" class="btn-sm hidden" title="保存原文">💾 保存</button>
@@ -69,6 +113,10 @@
         <button id="btn-start" class="btn-main btn-start">
           <span class="btn-icon-inner">🎤</span>
           <span class="btn-label">开始录制</span>
+        </button>
+        <button id="btn-paste" class="btn-main btn-paste-action" type="button">
+          <span class="btn-icon-inner">📋</span>
+          <span class="btn-label">粘贴逐字稿</span>
         </button>
         <button id="btn-pause" class="btn-main btn-pause hidden">
           <span class="btn-icon-inner">⏸️</span>
@@ -91,7 +139,11 @@
 
     <!-- 右栏：实时反馈 -->
     <aside class="panel-right">
-      <div class="panel-title">💡 实时反馈</div>
+      <div class="panel-heading">
+        <div class="panel-title">实时反馈</div>
+        <div class="panel-caption">捕捉值得调整的表达</div>
+      </div>
+
       <div id="feedback-content" class="feedback-content">
         <!-- 实时反馈内容 -->
       </div>
@@ -139,6 +191,16 @@
       </div>
       <div id="report-body" class="modal-body">
       </div>
+    </div>
+  </div>
+
+  <div id="challenge-result-modal" class="modal hidden">
+    <div class="modal-content challenge-result-content">
+      <div class="modal-header">
+        <h2>挑战完成</h2>
+        <button id="btn-close-challenge-result" class="btn-close" type="button">×</button>
+      </div>
+      <div id="challenge-result-body" class="modal-body"></div>
     </div>
   </div>
 
