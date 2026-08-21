@@ -1,21 +1,32 @@
-MIT License
+超级表达训练营项目专用许可证（个人使用与非商业授权）
 
-Copyright (c) 2026 Sisi
+版权所有 (c) 2026 m44359973-bot
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+一、授权范围
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+在遵守本许可证的前提下，任何人可以下载、安装、运行、复制和修改本项目，
+仅限个人学习、研究、非营利的表达训练和内部测试使用。
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+二、署名要求
+
+分发本项目或其修改版本时，必须保留本许可证全文、项目名称“超级表达训练营”，
+并在项目说明中注明原项目地址：https://github.com/m44359973-bot/super-expression-training-camp。
+同时必须明确说明修改内容，不能暗示修改版本由原项目维护者官方发布。
+
+三、禁止事项
+
+未经版权所有者书面许可，不得将本项目或其修改版本用于商业售卖、付费部署、
+付费课程配套或其他以营利为主要目的的服务；不得删除、隐藏或替换项目名称、
+版权声明和原项目地址；不得以“超级表达训练营”或版权所有者名义发布未经授权的官方版本。
+
+四、第三方组件
+
+本项目依赖的 Electron、Sherpa-ONNX 及其他第三方组件，仍分别受其自身许可证约束。
+本许可证不改变第三方组件的授权范围。
+
+五、免责声明
+
+本项目按“现状”提供，不提供任何明示或默示担保。使用者应自行承担使用本项目产生的风险。
+版权所有者不对因使用、修改或分发本项目造成的任何直接或间接损失承担责任。
+
+违反本许可证时，以上授权自动终止；停止使用并删除相关副本后，可重新向版权所有者申请授权。

@@ -1,5 +1,5 @@
 {
-  "name": "expression-trainer",
+  "name": "super-expression-training-camp",
   "productName": "超级表达训练营",
   "version": "1.0.0",
   "description": "超级表达训练营 - 本地口语训练桌面版",
@@ -9,8 +9,8 @@
     "dev": "electron . --dev"
   },
   "keywords": ["expression", "training", "speech", "asr", "chinese"],
-  "author": "sisi",
-  "license": "MIT",
+  "author": "m44359973-bot",
+  "license": "SEE LICENSE IN LICENSE",
   "devDependencies": {
     "electron": "^33.0.0"
   },

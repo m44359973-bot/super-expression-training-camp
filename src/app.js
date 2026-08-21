@@ -1,4 +1,4 @@
-// 宇宙无敌表达训练系统 V2
+// 超级表达训练营 - 本地桌面版
 
 class ExpressionTrainer {
   constructor() {
